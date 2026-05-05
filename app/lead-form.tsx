@@ -5,30 +5,30 @@ import { useState, type FormEvent } from "react";
 export function LeadForm() {
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setSubmitted(false);
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const name = String(formData.get("name") ?? "");
-    const business = String(formData.get("business") ?? "");
-    const phone = String(formData.get("phone") ?? "");
-    const work = String(formData.get("work") ?? "");
 
-    const subject = "New website lead";
-    const body = [
-      `Name: ${name}`,
-      `Business name: ${business}`,
-      `Phone: ${phone}`,
-      `What do you do?: ${work}`,
-    ].join("\n");
+    const response = await fetch("/api/lead", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: String(formData.get("name") ?? ""),
+        businessName: String(formData.get("businessName") ?? ""),
+        phone: String(formData.get("phone") ?? ""),
+        description: String(formData.get("description") ?? ""),
+      }),
+    });
 
-    window.location.href = `mailto:josh@notecreativestudios.com?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-
-    setSubmitted(true);
-    form.reset();
+    if (response.ok) {
+      setSubmitted(true);
+      form.reset();
+    }
   }
 
   return (
@@ -51,7 +51,7 @@ export function LeadForm() {
           Business name
         </span>
         <input
-          name="business"
+          name="businessName"
           type="text"
           required
           className="mt-2 h-14 w-full rounded-md border border-zinc-300 px-4 text-lg font-semibold outline-none focus:border-zinc-950 focus:ring-2 focus:ring-yellow-300"
@@ -73,7 +73,7 @@ export function LeadForm() {
           What do you do?
         </span>
         <textarea
-          name="work"
+          name="description"
           required
           rows={4}
           className="mt-2 w-full rounded-md border border-zinc-300 px-4 py-3 text-lg font-semibold outline-none focus:border-zinc-950 focus:ring-2 focus:ring-yellow-300"
