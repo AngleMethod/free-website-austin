@@ -7,25 +7,37 @@ type LeadPayload = {
 
 const leadWebhookUrl = process.env.LEAD_WEBHOOK_URL;
 
-async function sendLeadEmail(lead: LeadPayload) {
+async function sendLeadToWebhook(lead: LeadPayload) {
   if (!leadWebhookUrl) {
     return;
   }
 
-  const response = await fetch(leadWebhookUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      to: "josh@notecreativestudios.com",
-      subject: "New website lead",
-      lead,
-    }),
-  });
+  const message = [
+    "New Lead 🚀",
+    "",
+    `Name: ${lead.name}`,
+    `Business: ${lead.businessName}`,
+    `Phone: ${lead.phone}`,
+    `Details: ${lead.description}`,
+  ].join("\n");
 
-  if (!response.ok) {
-    throw new Error("Lead webhook request failed");
+  try {
+    const response = await fetch(leadWebhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message,
+        lead,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error("Lead webhook request failed", response.status);
+    }
+  } catch (error) {
+    console.error("Lead webhook request failed", error);
   }
 }
 
@@ -56,7 +68,7 @@ export async function POST(request: Request) {
     }
 
     console.log("New website lead", lead);
-    await sendLeadEmail(lead);
+    await sendLeadToWebhook(lead);
 
     return Response.json({ success: true });
   } catch (error) {

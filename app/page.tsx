@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { LeadForm } from "./lead-form";
 
 const benefits = [
@@ -11,6 +12,39 @@ const steps = [
   "Tell us about your business",
   "We build your site",
   "You go live",
+];
+
+const work = [
+  {
+    name: "Sarah's Silks",
+    label: "E-commerce / Lifestyle",
+    image: "/work/sarahs-silks.png",
+  },
+  {
+    name: "Dutton Estate",
+    label: "Winery / Hospitality",
+    image: "/work/dutton-estate.png",
+  },
+  {
+    name: "Porter Blue",
+    label: "Apparel Brand",
+    image: "/work/porter-blue.png",
+  },
+  {
+    name: "Stickerful",
+    label: "Consumer App",
+    image: "/work/stickerful.png",
+  },
+  {
+    name: "Ballet Beautiful",
+    label: "Fitness / Lifestyle",
+    image: "/work/ballet-beautiful.png",
+  },
+  {
+    name: "Angle",
+    label: "Training Platform",
+    image: "/work/angle-training.png",
+  },
 ];
 
 export default function Home() {
@@ -50,8 +84,7 @@ export default function Home() {
           </div>
 
           <p className="text-base font-semibold text-zinc-300">
-            We build, host, and maintain a simple professional website for your
-            business.
+            Simple modern websites for Austin businesses.
           </p>
         </div>
       </section>
@@ -93,6 +126,48 @@ export default function Home() {
           <p className="text-2xl font-black sm:text-3xl">
             Built for local businesses in Austin
           </p>
+        </div>
+      </section>
+
+      <section className="bg-zinc-950 px-5 py-14 text-white sm:px-8">
+        <div className="mx-auto max-w-4xl">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl font-black leading-tight sm:text-5xl">
+              Selected Work
+            </h2>
+            <p className="mt-4 text-xl font-bold leading-tight text-zinc-100">
+              Most local businesses don&apos;t need a complicated website. They
+              just need a professional one.
+            </p>
+            <p className="mt-3 text-base font-semibold text-zinc-300">
+              Here are a few recent projects from our studio.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+            {work.map((project) => (
+              <article
+                key={project.name}
+                className="overflow-hidden rounded-md border border-white/15 bg-white text-zinc-950 shadow-xl shadow-black/20"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-zinc-100">
+                  <Image
+                    src={project.image}
+                    alt={`${project.name} website screenshot`}
+                    fill
+                    sizes="(min-width: 640px) 50vw, 100vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="flex flex-col items-start gap-2 border-t border-zinc-200 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                  <h3 className="text-xl font-black">{project.name}</h3>
+                  <p className="rounded-full bg-yellow-300 px-3 py-1 text-xs font-black uppercase text-zinc-950">
+                    {project.label}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
