@@ -17,17 +17,17 @@ const steps = [
 const work = [
   {
     name: "Sarah's Silks",
-    label: "E-commerce / Lifestyle",
+    label: "Family / E-commerce",
     image: "/work/sarahs-silks.png",
   },
   {
     name: "Dutton Estate",
-    label: "Winery / Hospitality",
+    label: "Winery",
     image: "/work/dutton-estate.png",
   },
   {
     name: "Porter Blue",
-    label: "Apparel Brand",
+    label: "Apparel",
     image: "/work/porter-blue.png",
   },
   {
@@ -37,12 +37,12 @@ const work = [
   },
   {
     name: "Ballet Beautiful",
-    label: "Fitness / Lifestyle",
+    label: "Fitness Brand",
     image: "/work/ballet-beautiful.png",
   },
   {
     name: "Angle",
-    label: "Training Platform",
+    label: "Coaching Platform",
     image: "/work/angle-training.png",
   },
 ];
@@ -129,28 +129,35 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-zinc-950 px-5 py-14 text-white sm:px-8">
+      <section className="bg-zinc-950 px-5 py-16 text-white sm:px-8 sm:py-18">
         <div className="mx-auto max-w-4xl">
-          <div className="max-w-2xl">
-            <h2 className="text-4xl font-black leading-tight sm:text-5xl">
-              Selected Work
+          <div className="max-w-3xl">
+            <div className="inline-flex w-fit rounded-full border border-white/20 px-4 py-2 text-sm font-black uppercase tracking-wide text-yellow-300">
+              RECENT WEBSITES
+            </div>
+            <h2 className="mt-5 text-4xl font-black leading-tight sm:text-5xl">
+              Simple modern websites for real businesses.
             </h2>
-            <p className="mt-4 text-xl font-bold leading-tight text-zinc-100">
-              Most local businesses don&apos;t need a complicated website. They
-              just need a professional one.
+            <p className="mt-5 max-w-2xl text-xl font-bold leading-snug text-zinc-100">
+              We help local businesses look professional online without the
+              typical agency process, giant upfront costs, or long timelines.
             </p>
-            <p className="mt-3 text-base font-semibold text-zinc-300">
-              Here are a few recent projects from our studio.
+            <p className="mt-4 text-base font-semibold text-zinc-300">
+              Most sites are live in just a few days.
             </p>
           </div>
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          <h3 className="mt-10 text-2xl font-black">
+            Recent projects from our studio
+          </h3>
+
+          <div className="mt-6 grid gap-6 sm:grid-cols-2">
             {work.map((project) => (
               <article
                 key={project.name}
-                className="overflow-hidden rounded-md border border-white/15 bg-white text-zinc-950 shadow-xl shadow-black/20"
+                className="overflow-hidden rounded-md border border-white/15 bg-white text-zinc-950 shadow-xl shadow-black/25"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-zinc-100">
+                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100">
                   <Image
                     src={project.image}
                     alt={`${project.name} website screenshot`}
